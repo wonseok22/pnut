@@ -1,0 +1,109 @@
+buildscript{
+	ext {
+		querydslVer = '5.0.0'
+		querydslPluginVer = '1.0.10'
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+//		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
+//		classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
+//		classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+//		//이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요. [시작]
+//		// classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
+//		//[끝]
+//		classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.9'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+jar {
+	enabled = false
+}
+
+group = 'com.ssafy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	all {
+		//logback과의 충돌 방지
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	annotationProcessor 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'mysql:mysql-connector-java:8.0.31'--
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'net.datafaker:datafaker:1.7.0'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+	implementation("com.querydsl:querydsl-apt:${querydslVer}")
+	//jwt association
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	//gmail smtp setting
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//certification number set for expiration date grant
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+	// S3 connect
+	implementation group : 'org.springframework.cloud', name:'spring-cloud-starter-aws', version: '2.2.6.RELEASE'
+
+	// Swagger
+	implementation("io.springfox:springfox-swagger2:3.0.0")
+	implementation("io.springfox:springfox-swagger-ui:3.0.0")
+	implementation("io.springfox:springfox-data-rest:3.0.0")
+	implementation("io.springfox:springfox-bean-validators:3.0.0")
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+	implementation("com.google.guava:guava:29.0-jre")
+	annotationProcessor("com.google.guava:guava:29.0-jre")
+
+	//IntelliJ용
+	//IntelliJ에서는 하기 annotationProcessor를 쓰면 별도의 querydsl 플러그인 및 플러그인 설정이 불필요.
+	annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
+
+	implementation("com.auth0:java-jwt:3.10.3")
+
+	// S3서버
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// multipartfile
+	implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
+	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4' /* Apache Commons FileUpload */
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

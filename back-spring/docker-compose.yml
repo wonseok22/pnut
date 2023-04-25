@@ -1,0 +1,32 @@
+version: "3.7"
+#volumes:
+#  ssafytime_db:
+#    external: true
+#    name: ssafytime_db
+services:
+#  database:
+#    image: mysql:8.0.30
+#    environment:
+#      MYSQL_DATABASE: ssafy_web_db
+#      MYSQL_ROOT_HOST: "%"
+#      MYSQL_ROOT_PASSWORD: ssafy
+#      TZ: Asia/Seoul
+#
+#    volumes:
+#      - ssafytime_db:/var/lib/mysql
+#
+#    ports:
+#      - 3306:3306
+#
+#    command:
+#      - "--character-set-server=utf8mb4"
+#      - "--collation-server=utf8mb4_unicode_ci"
+#
+#    restart: always
+
+  application:
+    build: .
+    ports:
+      - "9090:9090"
+
+    restart: always
