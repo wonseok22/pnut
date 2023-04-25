@@ -2,7 +2,7 @@
 
 <br>
 
-## **서비스 페이지: [https://pnut.site](https://pnut.site)** 
+## **서비스 페이지: [https://pnut.site](https://pnut.site)** (2023.04.21.closed)
 <br>
 
 <br>
